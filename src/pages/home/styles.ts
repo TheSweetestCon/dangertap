@@ -5,6 +5,7 @@ export const HomeContainer = styled.View`
     align-items: center;
     justify-content: center;
     flex: 1;
+
 `;
 
 export const HomeText = styled.Text`
