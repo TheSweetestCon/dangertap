@@ -24,17 +24,11 @@ export function AppRoutes(){
                 headerShown: false,
                 tabBarStyle: {
                     backgroundColor: theme.colors.background,
-                    borderTopColor: 'transparent',
-                    borderTopWidth: 0
+                    borderTopColor: '#C0C0C0',
+                    borderTopWidth: 0.5,
                 },
                 tabBarActiveTintColor: theme.colors.title,
                 tabBarInactiveTintColor: theme.colors.light_title,
-                tabBarLabelStyle:{
-                    paddingBottom: 5
-
-                },
-                    
-                
             }}
             >
             
