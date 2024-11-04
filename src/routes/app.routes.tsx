@@ -35,7 +35,7 @@ export function AppRoutes(){
                 <Tab.Screen name="Home" component={Home} 
                     options={{
                         tabBarIcon: ({ size, color }) => (
-                            <FontAwesome name="home" size={size} color={color} />
+                            <FontAwesome name="home" size={size-3} color={color} />
                         )
                     }}
                 />
@@ -43,14 +43,14 @@ export function AppRoutes(){
                 <Tab.Screen name="Mapa" component={Mapa}
                     options={{
                         tabBarIcon: ({ size, color }) => (
-                            <FontAwesome name="map" size={size} color={color} />
+                            <FontAwesome name="map" size={size-6} color={color} />
                         )
                     }}
                 />
                 <Tab.Screen name="Config" component={Config}
                     options={{
                         tabBarIcon: ({ size, color }) => (
-                            <Ionicons name="settings" size={size} color={color} />
+                            <Ionicons name="settings" size={size-3} color={color} />
                         )
                     }}
                 />

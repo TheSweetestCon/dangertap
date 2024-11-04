@@ -3,6 +3,7 @@ import * as S from './styles'
 import CustomMap from '../../components/Map'
 import { FlatList, ScrollView } from "react-native";
 import { Card } from "../../components/Card";
+import { Separator } from "../../components/Separator";
 
 type LocationType = {
     latitude: number;
@@ -28,7 +29,7 @@ type LocationType = {
                     rotateEnabled={false} 
                     showsUserLocation={false} 
                     showMarker={true}
-                    timeInterval={1000}
+                    timeInterval={60000}
                 />
                 </S.MapContainer>
                 <S.ButtonTap>
@@ -44,9 +45,13 @@ type LocationType = {
                 
                 <S.ListContainer>
                     <Card user="Kevyn" lastLocation="Casa" icon={require('../../assets/img/cachorro.jpg')}/>
+                    <Separator/>
                     <Card user="Matheus" lastLocation="Trabalho" icon={require('../../assets/img/cachorro.jpg')}/>
+                    <Separator/>
                     <Card user="Natário" lastLocation="Restaurante" icon={require('../../assets/img/cachorro.jpg')}/>
+                    <Separator/>
                     <Card user="Sara" lastLocation="Taverna Medieval" icon={require('../../assets/img/cachorro.jpg')}/>
+                    <Separator/>
                     <Card user="Roberta" lastLocation="Ibirapuera" icon={require('../../assets/img/cachorro.jpg')}/>
                 </S.ListContainer>
                

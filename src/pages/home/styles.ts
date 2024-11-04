@@ -125,7 +125,7 @@ export const ListContainer = styled.View`
     ${({theme}) => css`
         background-color: ${theme.colors.text_white};
         width: 100%;
-        gap: 24px;
+        gap: 12px;
         border-radius: 13px;
         padding: 30px;
     `}
