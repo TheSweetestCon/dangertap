@@ -13,17 +13,15 @@ export const HomeContainer = styled.View`
         padding-left: 30px;
         padding-right: 30px;
         padding-top: 90px;
-        gap: 30px;
-    `}
-    
-    
+        gap: 17px;
+    `}  
 `;
 
 export const Header = styled.View`
-    
     width: 100%;
     height: 50px;
     justify-content: center;
+    margin-bottom: 20px;
 `;
 
 export const HomeText = styled.Text`
@@ -39,7 +37,7 @@ export const MapContainer = styled.View`
     ${({theme}) => css`
         background-color: ${theme.colors.text_white};
         width: 100%;
-        height: 248px;
+        height: 180px;
         border-radius: 15px;
         align-items: center;
         justify-content: center;
@@ -65,6 +63,7 @@ export const ButtonTap = styled.TouchableOpacity`
         align-items: center;
         border-radius: 13px;
         flex-direction: row;
+
     `}
     
 `;
@@ -105,5 +104,29 @@ export const ButtonTextTap = styled.Text`
         font-weight: bold;
         width: 65%;
         text-align: center;
+    `}
+`;
+
+export const LastLocationContainer = styled.View`
+    ${({theme}) => css`
+        background-color: ${theme.colors.text_white};
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        border-radius: 13px;
+        flex: 1;
+        flex-direction: row;
+        padding: 20px 20px 30px 20px;
+        gap: 10px;
+    `}
+`;  
+
+export const ListContainer = styled.View`
+    ${({theme}) => css`
+        background-color: ${theme.colors.text_white};
+        width: 100%;
+        gap: 24px;
+        border-radius: 13px;
+        padding: 30px;
     `}
 `;

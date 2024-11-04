@@ -12,8 +12,8 @@ export const AreaView = styled.SafeAreaView`
 
 export const LogoContainer = styled.View`
 
-    justifyContent: center;
-    alignItems: center;
+    justify-content: center;
+    align-items: center;
     
 `;
 
@@ -60,7 +60,7 @@ export const OptionsContainer = styled.View`
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
-    marginBottom: 15px;
+    margin-bottom: 15px;
 `;
 
 export const SwitchView = styled.View`

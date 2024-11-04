@@ -4,7 +4,7 @@ export default{
         title: '#ff2d55',
         light_title: 'rgba(255,59,48,0.54)',
         default_font: '#6b6b6b', 
-
+        dark_text: '#141414',
         text_white: '#FFFFFF',
         light_text: 'rgba(23, 23, 27, 0.6)',
         detail: '#747476',
