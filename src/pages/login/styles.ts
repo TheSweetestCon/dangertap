@@ -11,13 +11,9 @@ export const AreaView = styled.SafeAreaView`
 `;
 
 export const LogoContainer = styled.View`
-
     justify-content: center;
     align-items: center;
-    
 `;
-
-export const Image = styled.Image``;
 
 export const LogoText = styled.Text`
 
@@ -26,7 +22,7 @@ export const LogoText = styled.Text`
         font-weight: bold;
         text-transform: uppercase;
         text-align: center;
-        line-height: 80px;
+        line-height: 50px;
         color: ${theme.colors.title};
     `}
 
@@ -51,6 +47,12 @@ export const FormInput = styled.TextInput`
         border-width: 1px;
         border-radius: 40px;
     `}
+`;
+
+export const ErrorMessage = styled.Text`
+  color: red;
+  font-size: 13px;
+  margin-bottom: 20px;
 `;
 
 export const OptionsContainer = styled.View`
@@ -78,60 +80,19 @@ export const RememberSwitch = styled.Text`
 
 export const ForgetView = styled.View``;
 
-export const ForgetPressable = styled.Pressable``;
-
-export const ForgetText = styled.Text`
-    ${({theme}) => css`
-        font-size: 13px;
-        color: ${theme.colors.default_font};
-    `}
+export const Footer = styled.View`
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    margin-top: 15px;
 `;
-
-export const ButtonContainer = styled.View`
-    width: 100%;
-    padding-left: 90px;
-    padding-right: 90px;
-`;
-
-export const ButtonPressable = styled.Pressable`
-    ${({theme}) => css `
-        background-color: ${theme.colors.title};
-        border-color: ${theme.colors.title};
-        border-width: 1px;
-        border-radius: 40px;
-        align-items: center;
-        justify-content: center;
-        height: 45px;
-    `}
-`;
-
-export const ButtonText = styled.Text`
-    ${({theme}) => css`
-        color: ${theme.colors.background};
-        font-size: 18px;
-        font-weight: bold;
-    `}
-`;
-
-export const Footer = styled.View``;
 
 export const SignUpText = styled.Text`
     ${({theme}) => css`
         color: ${theme.colors.default_font};
         text-align: center;
         font-size: 13px;
-        margin-top: 15px;
-        
     `}
 `;
 
-export const SignUpPressable = styled.Pressable``;
 
-export const SignUpPressableText = styled.Text`
-    ${({theme}) => css`
-        color: ${theme.colors.title};
-        font-size: 13px;
-        margin-left: 5px;
-        top: 2.5px;
-    `}
-`;

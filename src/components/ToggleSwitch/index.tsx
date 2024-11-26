@@ -5,6 +5,7 @@ import theme from "../../global/theme";
 import * as S from './styles'
 
 
+
 export function ToggleSwitch({ label }: ToggleSwitchProps){
     const [click,setClick] = useState(false);
     const [isEnabled, setIsEnabled] = useState(false);

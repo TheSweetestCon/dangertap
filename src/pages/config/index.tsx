@@ -4,6 +4,7 @@ import * as S from './styles'
 import { ToggleSwitch } from "../../components/ToggleSwitch";
 import { Separator } from "../../components/Separator";
 import { ConfigProps } from "./types";
+import api from '../../service/api'
 
 export function Config() {
     const [config, setConfig] = useState<ConfigProps>({

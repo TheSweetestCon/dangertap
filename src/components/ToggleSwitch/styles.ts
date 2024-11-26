@@ -4,9 +4,8 @@ import css from "styled-components/native";
 export const ToggleContainer = styled.View`
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    width: 100%;
 `;
 
 export const LabelText = styled.Text`
