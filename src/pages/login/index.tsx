@@ -1,44 +1,44 @@
 
 import Logo from '../../assets/img/logo'
-import { useNavigation } from '@react-navigation/native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import * as S from './styles'
-import { api }  from '../../service/api'
 import { ToggleSwitch } from '../../components/ToggleSwitch'
 import { FormInput } from '../../components/FormInput'
 import { Button } from '../../components/Button'
 import { TextPressable } from '../../components/TextPressable'
 import theme from '../../global/theme'
+import { AuthContext } from '../../global/AuthContext/AuthGlobal'
 
 
 export function Login(){
   const [email, setEmail] = useState("")
   const [senha, setSenha] = useState("")
   const [errorMessage, setErrorMessage] = useState('');
-
-  const navigation = useNavigation()
+  const auth = useContext(AuthContext)
 
 
   async function handleLogin() {
+
       setErrorMessage('')
-      await api.post("/auth/login",{
-        email,
-        senha
-      })
 
-      .then(function (response){
-        console.log('Deu certo!', response.data)
-        //navigation.navigate('AppRoutes')
-      })
+      try {
+        if (auth) {
+          await auth.signIn(email, senha)
+  
+          console.log('Login realizado com sucesso!')
+        }
 
-      .catch(function (error){
+      } catch (error: any) {
+
         console.log(error)
-        if(error.response.status === 401){
+
+        if(error.status === 401){
           setErrorMessage('Usuário ou senha inválido(s)!')
         } else {
           setErrorMessage('Erro no servidor. Tente novamente mais tarde.')
         }
-      })
+
+      }    
   }
 
 

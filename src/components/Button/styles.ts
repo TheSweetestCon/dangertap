@@ -7,16 +7,12 @@ export const ButtonContainer = styled.View`
     padding-right: 90px;
 `;
 
-export const ButtonPressable = styled.Pressable`
-    ${({theme}) => css `
-        background-color: ${theme.colors.title};
-        border-color: ${theme.colors.title};
-        border-width: 1px;
-        border-radius: 40px;
-        align-items: center;
-        justify-content: center;
-        height: 45px;
-    `}
+export const ButtonPressable = styled.Pressable<{ isHovered: boolean }>`
+    border-width: 0px;
+    border-radius: 40px;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
 `;
 
 export const ButtonText = styled.Text`

@@ -33,6 +33,23 @@ export const ConfigText = styled.Text`
     `}
 `;
 
+export const Logout = styled.Pressable`
+
+    background-color: yellow;
+    width: 100%;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+
+`;
+
+export const LogoutText = styled.Text`
+    color: red;
+    text-align: center;
+    width: 100%;
+    font-size: 30px;
+`;
+
 export const SettingsContainer = styled.View`
     ${({theme}) => css`
         background-color: ${theme.colors.text_white};
