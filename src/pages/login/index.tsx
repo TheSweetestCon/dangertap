@@ -24,8 +24,6 @@ export function Login(){
       try {
         if (auth) {
           await auth.signIn(email, senha)
-  
-          console.log('Login realizado com sucesso!')
         }
 
       } catch (error: any) {
@@ -54,7 +52,9 @@ export function Login(){
             <S.LogoText>Danger Tap!</S.LogoText>
         </S.LogoContainer>
 
-      {errorMessage ? <S.ErrorMessage>{errorMessage}</S.ErrorMessage> : null}
+      <S.ErrorView>
+        {errorMessage ? <S.ErrorMessage>{errorMessage}</S.ErrorMessage> : null}
+      </S.ErrorView>
 
       <FormInput placeholder='Email' secureTextEntry={false} value={email} onChangeText={setEmail} />
       <FormInput placeholder='Senha' secureTextEntry={true}  value={senha} onChangeText={setSenha} />

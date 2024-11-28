@@ -49,10 +49,16 @@ export const FormInput = styled.TextInput`
     `}
 `;
 
+export const ErrorView = styled.View`
+  width: 100%;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const ErrorMessage = styled.Text`
   color: red;
   font-size: 13px;
-  margin-bottom: 20px;
 `;
 
 export const OptionsContainer = styled.View`

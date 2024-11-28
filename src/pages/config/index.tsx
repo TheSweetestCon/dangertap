@@ -45,10 +45,14 @@ export function Config() {
 
                 {config.nomes.map((item, index) => (
 
-                    <View key={index} style={{ width: "100%", gap: 8}}>
-                        <ToggleSwitch label={item.nome} />
+                    <S.Options key={index} >
+                         <S.SwitchView>
+                            <S.SwitchText>{item.nome}</S.SwitchText>
+                            <ToggleSwitch label='' />
+                         </S.SwitchView>
+                         
                         {index < (config.nomes.length-1) && <Separator/>}
-                    </View>
+                    </S.Options>
 
                    ))  
                 }

@@ -1,7 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {ResponsavelType, UserType} from './types'
 import { api } from './api'
 
 const TOKEN_KEY = '@authToken'
+const USER_KEY = '@user'
 
 export const saveToken = async (token: string): Promise<void> => {
     await AsyncStorage.setItem(TOKEN_KEY, token)
@@ -14,17 +16,29 @@ export const getToken = async (): Promise<string | null> => {
 export const removeToken = async (): Promise<void> => {
 
     await AsyncStorage.removeItem(TOKEN_KEY)
-
+    
 }
 
+export const saveUser = async (user: UserType): Promise<void> => {
+    console.log('Aqui: ', user, ' | FIM')
+    await AsyncStorage.setItem(USER_KEY, JSON.stringify(user))
+}
+
+export const getUser = async (): Promise<string | null> => {
+    return await AsyncStorage.getItem(USER_KEY) // O certo seria usar Promise<UserType | null> com JSON.parse, mas não funcionou
+}
 
 export const login = async (email: string, senha: string): Promise<void> => {
 
     try {
         const response = await api.post('/auth/login', { email, senha });
-        const token = response.data.data.token;
+        
+        const { token } = response.data.data;
+        const userData = response.data.data.user
+
+        await saveUser(userData)
         await saveToken(token);
-        console.log('Token salvo: ', token)
+
     } catch (error: any) {
         throw {
             status: error.response?.status || 500,
@@ -34,18 +48,14 @@ export const login = async (email: string, senha: string): Promise<void> => {
 
 };
 
-export const getProtectedData = async (): Promise<any> => {
+export const responsavel = async (id: number): Promise<ResponsavelType[]> => {
     const token = await getToken()
 
     if(!token){
         throw new Error('Token não encontrado, faça login!')
     }
 
-    const response = await api.get('/users', {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    })
+    const response = await api.get(`/users/responsavel?id=${id}`)
 
     return response.data
 }

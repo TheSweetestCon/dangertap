@@ -33,23 +33,6 @@ export const ConfigText = styled.Text`
     `}
 `;
 
-export const Logout = styled.Pressable`
-
-    background-color: yellow;
-    width: 100%;
-    height: 50px;
-    justify-content: center;
-    align-items: center;
-
-`;
-
-export const LogoutText = styled.Text`
-    color: red;
-    text-align: center;
-    width: 100%;
-    font-size: 30px;
-`;
-
 export const SettingsContainer = styled.View`
     ${({theme}) => css`
         background-color: ${theme.colors.text_white};
@@ -60,5 +43,26 @@ export const SettingsContainer = styled.View`
         flex-direction: column;
         padding: 20px;
         gap: 15px;
+    `}
+`;
+
+export const Options = styled.View`
+    width: 100%;
+    gap: 8px;
+    flex-direction: column;
+`;
+
+export const SwitchView = styled.View`
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+`;
+
+export const SwitchText = styled.Text`
+    ${({theme}) => css`
+        color: ${theme.colors.dark_text};
+        font-size: 16px;
+        font-weight: normal;
+        text-align: left;
     `}
 `;

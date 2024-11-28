@@ -6,7 +6,6 @@ import theme from '../../global/theme'
 
 export function Button({ label, onPress }: ButtonProps){
 
-    const [isHovered, setIsHovered] = useState(false)
 
     const animationValue = useRef(new Animated.Value(0)).current;
 
@@ -20,7 +19,12 @@ export function Button({ label, onPress }: ButtonProps){
 
     const backgroundColor = animationValue.interpolate({
         inputRange: [0,1],
-        outputRange: [theme.colors.title, 'orange']
+        outputRange: [theme.colors.title, theme.colors.text_white]
+    })
+
+    const textColor = animationValue.interpolate({
+        inputRange: [0,1],
+        outputRange: [theme.colors.text_white, theme.colors.title]
     })
   
     return (
@@ -36,17 +40,24 @@ export function Button({ label, onPress }: ButtonProps){
                 <S.ButtonPressable 
                     onPress={onPress}
                     onPressIn={() => {
-                            setIsHovered(true);
                             handleAnimation(1)
                         }
                     }
                     onPressOut={() => {
-                        setIsHovered(false);
                         handleAnimation(0);
                       }}  
-                    isHovered={isHovered} 
+                     
                 >
-                    <S.ButtonText>{label}</S.ButtonText>
+                    <Animated.Text 
+                        style={{
+                            color: textColor,
+                            fontSize: 18,
+                            fontWeight: 'bold',
+                            textTransform: 'capitalize'
+                        }}
+                    >
+                       {label}
+                    </Animated.Text>
                 </S.ButtonPressable>
 
             </Animated.View>

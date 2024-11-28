@@ -28,6 +28,7 @@ export const LastLocationTextName = styled.Text`
         font-size: 20px;
         font-weight: bold;
         color: ${theme.colors.dark_text};
+        text-transform: capitalize;
     `}
 `;
 

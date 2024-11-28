@@ -1,26 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import * as S from './styles'
 import CustomMap from '../../components/Map'
-import { FlatList, ScrollView } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import { Card } from "../../components/Card";
 import { Separator } from "../../components/Separator";
-
-type LocationType = {
-    latitude: number;
-    longitude: number;
-    latitudeDelta: number;
-    longitudeDelta: number;
-  } | null;
+import { AuthContext } from "../../global/AuthContext/AuthGlobal";
+import { ResponsavelType } from '../../service/types'
 
   export function Home() {
-    
+    const authContext = useContext(AuthContext)
+    const [responsavel, setReponsavel] = useState<ResponsavelType[] | null>(null)
 
+    useEffect(() => {
+        async function buscaResponsavel(){
+            try {
+                if(authContext?.user){
+                    const data = await authContext.getResponsavel(authContext.user.id)
+                    setReponsavel(data)
+                }
+            } catch (error) {
+                console.log('Erro ao buscar responável: ', error)
+            }
+        }
+        buscaResponsavel()
+    }, [authContext])
+
+    
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
             <S.HomeContainer>
                 <S.Header>
                     <S.HomeText>DangerTAP</S.HomeText>
                 </S.Header>
+
+                
                 <S.MapContainer>
                 <CustomMap 
                     style={{borderRadius: 15}}
@@ -44,15 +57,12 @@ type LocationType = {
                 </S.ButtonTap>
                 
                 <S.ListContainer>
-                    <Card user="Kevyn" lastLocation="Casa" icon={require('../../assets/img/cachorro.jpg')}/>
-                    <Separator/>
-                    <Card user="Matheus" lastLocation="Trabalho" icon={require('../../assets/img/cachorro.jpg')}/>
-                    <Separator/>
-                    <Card user="Natário" lastLocation="Restaurante" icon={require('../../assets/img/cachorro.jpg')}/>
-                    <Separator/>
-                    <Card user="Sara" lastLocation="Taverna Medieval" icon={require('../../assets/img/cachorro.jpg')}/>
-                    <Separator/>
-                    <Card user="Roberta" lastLocation="Ibirapuera" icon={require('../../assets/img/cachorro.jpg')}/>
+                {responsavel && responsavel?.map((item: ResponsavelType, index: number) => (
+                    <View key={index} style={{gap: 12}}>
+                        <Card user={item.NOME} lastLocation="Casa" icon={require('../../assets/img/cachorro.jpg')}/>
+                        {index < (responsavel.length-1) && <Separator/>}
+                    </View>
+                ))}   
                 </S.ListContainer>
                
             </S.HomeContainer>
