@@ -5,6 +5,7 @@ export const ButtonContainer = styled.View`
     width: 100%;
     padding-left: 90px;
     padding-right: 90px;
+    
 `;
 
 export const ButtonPressable = styled.Pressable`

@@ -9,7 +9,16 @@ import { Button } from "../../components/Button";
 
 export function Config() {
     const auth = useContext(AuthContext)
+    const [notification, setNotification] = useState<boolean>(false)
 
+    function handleTogle(value: boolean) {
+        setNotification(value)
+        if(value){
+            console.log("Notificações ativadas");
+        } else {
+            console.log("Notificações desativadas");
+        }
+    }
     
 
     const [config, setConfig] = useState<ConfigProps>({
@@ -48,7 +57,7 @@ export function Config() {
                     <S.Options key={index} >
                          <S.SwitchView>
                             <S.SwitchText>{item.nome}</S.SwitchText>
-                            <ToggleSwitch label='' />
+                            <ToggleSwitch label='' onToggle={handleTogle}/>
                          </S.SwitchView>
                          
                         {index < (config.nomes.length-1) && <Separator/>}

@@ -55,7 +55,16 @@ export const responsavel = async (id: number): Promise<ResponsavelType[]> => {
         throw new Error('Token não encontrado, faça login!')
     }
 
-    const response = await api.get(`/users/responsavel?id=${id}`)
+    try {
+        const response = await api.get(`/users/responsavel?id=${id}`)
+        return response.data
+    } catch (error: any) {
+        throw{
+            status: error.response?.status || 500,
+            message: error.response?.data?.message || 'Erro no servidor.'
+        }
+    }
 
-    return response.data
+
+    
 }

@@ -6,15 +6,22 @@ import * as S from './styles'
 
 
 
-export function ToggleSwitch({ label }: ToggleSwitchProps){
-    const [click,setClick] = useState(false);
-    const [isEnabled, setIsEnabled] = useState(false);
+export function ToggleSwitch({ label, onToggle }: ToggleSwitchProps){
+    const [isToggled,setIsToggled] = useState(false);
+
+    function handleToggle(value: boolean) {
+        setIsToggled(value)
+        if(onToggle){
+            onToggle(value)
+        }
+    }
+
     return (
         <S.ToggleContainer>
             <S.LabelText>{label}</S.LabelText>
             <Switch 
-                value={click} 
-                onValueChange={setClick} 
+                value={isToggled} 
+                onValueChange={handleToggle} 
                 trackColor={{true : theme.colors.title , false : "gray"}} />
         </S.ToggleContainer>
     )

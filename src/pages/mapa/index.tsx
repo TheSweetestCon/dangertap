@@ -3,7 +3,7 @@ import { Text } from "react-native";
 import * as S from './styles'
 import CustomMap from "../../components/Map";
 
-export function Mapa() {
+export function Mapa(): JSX.Element {
     return (
         <S.MapContainer>
             <CustomMap 

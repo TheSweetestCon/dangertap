@@ -41,13 +41,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     };
 
     const getResponsavel = async (id: number) => {
-        try{
+
             const data = await responsavel(id)
             console.log(id)
             return data
-        } catch (error) {
-            console.log('Erro ao buscar o responsavel: ',error)
-        }
+
     }
 
     return (

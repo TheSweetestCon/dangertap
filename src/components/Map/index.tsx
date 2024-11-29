@@ -51,7 +51,7 @@ export default function CustomMap({
             if (mapReady && mapRef.current) {
               mapRef.current.animateCamera(
                 {
-                  center: location
+                  center: { latitude: newLocation.coords.latitude, longitude: newLocation.coords.longitude }
                 }
               );
             }

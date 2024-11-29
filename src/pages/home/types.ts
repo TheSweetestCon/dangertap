@@ -1,4 +1,6 @@
+
 import { ResponsavelType } from '../../service/types'
+
 
 export type AuthContextData = {
     user: {
@@ -7,3 +9,4 @@ export type AuthContextData = {
     } | null;
     getResponsavel: (id: number) => Promise<ResponsavelType[]>
 }
+
