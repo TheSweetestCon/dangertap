@@ -56,7 +56,8 @@ export const responsavel = async (id: number): Promise<ResponsavelType[]> => {
     }
 
     try {
-        const response = await api.get(`/users/responsavel?id=${id}`)
+        const response = await api.get(`/resp?id=${id}`)
+
         return response.data
     } catch (error: any) {
         throw{
@@ -67,6 +68,37 @@ export const responsavel = async (id: number): Promise<ResponsavelType[]> => {
     
 }
 
-export const registerPushNotification = async (token: string) => {
+export const registerPushNotification = async (id: number, token: string, platform: string, deviceName: string | null) => {
+    if(!token || !id) {
+        throw new Error("Usuário ou token não encontrados!");
+    }
+
+    try {
+        const response = await api.post(`/push/set`, {id, token, platform, deviceName})
+        console.log('Resposta: ', response)
+    } catch (error: any) {
+        throw{
+            status: error.response?.status || 500,
+            message: error.response?.data?.message || 'Erro no servidor.'
+        }
+    }
+}
+
+export const sendButtonNotification = async (id: number, title: string, message: string) => {
+    if (!id){
+        console.log('Necessário informar o usuário!')
+    }
+
     
+    try {
+        
+        const response = await api.post(`/push/send`, {id, title, message})
+        console.log('Resposta: ', response)
+
+    } catch (error: any) {
+        throw{
+            status: error.response?.status || 500,
+            message: error.response?.data?.message || 'Erro no servidor.'
+        }
+    }
 }

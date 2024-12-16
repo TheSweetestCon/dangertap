@@ -15,10 +15,18 @@ import { TapButton } from "../../components/TapButton";
     const [responsavel, setReponsavel] = useState<ResponsavelType[]>([])
     const [refresh, setRefresh] = useState(false)
 
+    async function handleDangerTAP() {
+        if(!authContext?.user.id){
+            return
+        } else {
+            await authContext.sendNotification(authContext.user.id, authContext.user.nome)
+        }
+    }
 
     async function buscaResponsavel(){
         try {
             if(authContext?.user){
+                console.log('ID DO USUARIO: ',authContext.user.id)
                 const data = await authContext.getResponsavel(authContext.user.id)
                 setReponsavel((prevResponsavel) => {
                     // Aqui você pode verificar se houve uma mudança no nome ou outros dados
@@ -89,7 +97,7 @@ import { TapButton } from "../../components/TapButton";
                     />
                     </S.MapContainer>
                     
-                    <TapButton />
+                    <TapButton onPress={handleDangerTAP} />
                     
                     <S.ListContainer>
                     {responsavel && responsavel?.map((item: ResponsavelType, index: number) => (

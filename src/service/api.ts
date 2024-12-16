@@ -3,7 +3,7 @@ import { getToken, removeToken } from './authService'
 import { Alert } from 'react-native'
 
 export const api = axios.create({
-    baseURL: 'http://192.168.1.11:3000/api/'
+    baseURL: 'http://192.168.14.118:3000/api/'
 })
 
 api.interceptors.request.use(async (config) => {
