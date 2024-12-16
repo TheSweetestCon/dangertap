@@ -21,8 +21,19 @@
         "backgroundColor": "#ffffff"
       }
     },
+    "notifications": {
+      "ios": {
+        "supportsReminders": true,
+        "supportsVoiceOver": true
+      }
+    },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "3c905e40-5bc0-4b2c-a543-d6405ddd5ebf"
+      }
     }
   }
 }

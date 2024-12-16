@@ -64,7 +64,9 @@ export const responsavel = async (id: number): Promise<ResponsavelType[]> => {
             message: error.response?.data?.message || 'Erro no servidor.'
         }
     }
+    
+}
 
-
+export const registerPushNotification = async (token: string) => {
     
 }

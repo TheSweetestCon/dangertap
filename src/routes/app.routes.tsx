@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 //import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Login } from "../pages/login";
@@ -6,9 +6,10 @@ import { Home } from '../pages/home'
 import { Config } from '../pages/config'
 import { Mapa } from '../pages/mapa'
 import theme from '../global/theme'
-
+import * as Notifications from 'expo-notifications'
 import {FontAwesome} from '@expo/vector-icons'
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { AuthContext } from "../global/AuthContext/AuthGlobal";
 
 
 export type RootStackParamList = {
@@ -18,6 +19,20 @@ export type RootStackParamList = {
 const Tab = createBottomTabNavigator();
 
 export function AppRoutes(){
+    const authContext = useContext(AuthContext);
+
+    useEffect(() => {
+        authContext?.requestNotificationPermission();
+    }, [])
+
+    Notifications.setNotificationHandler({
+        handleNotification: async () => ({
+          shouldShowAlert: true,
+          shouldPlaySound: true,      
+          shouldSetBadge: false,
+        }),
+      });
+
     return(
         <Tab.Navigator 
             screenOptions={{

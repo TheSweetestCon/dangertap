@@ -4,8 +4,9 @@ export interface AuthContextData {
     isAuthenticated: boolean;
     signIn: (email: string, senha: string) => Promise<void>;
     signOut: () => Promise<void>;
-    user: User
-    getResponsavel: (id: number) => Promise<any>
+    user: User;
+    getResponsavel: (id: number) => Promise<any>;
+    requestNotificationPermission: () => Promise<any>;
 }
 
 interface User {
