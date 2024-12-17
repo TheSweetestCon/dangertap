@@ -1,9 +1,11 @@
 import {FormInputProps} from './types'
 import * as S from './styles'
+import TextInputMask from 'react-native-text-input-mask';
+import { useState } from 'react';
 
 
 
-export function FormInput({ placeholder, secureTextEntry, value, onChangeText }: FormInputProps){
+export function FormInput({ placeholder, secureTextEntry, value, onChangeText, keyboardType }: FormInputProps){
 
     return (
 
@@ -15,6 +17,7 @@ export function FormInput({ placeholder, secureTextEntry, value, onChangeText }:
                 onChangeText={onChangeText} 
                 autoCorrect={false}
                 autoCapitalize='none' 
+                keyboardType={keyboardType}
             />
       </S.FormContainer>
 
