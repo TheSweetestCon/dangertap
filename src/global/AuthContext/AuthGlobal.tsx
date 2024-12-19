@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState, ReactNode } from 'react';
-import { getToken, getUser, login, removeToken, responsavel, registerPushNotification, sendButtonNotification, removeUser, searchUserByCpf, searchUserByEmail } from '../../service/authService';
+import { getToken, getUser, login, removeToken, responsavel, registerPushNotification, sendButtonNotification, removeUser, searchUserByCpf, searchUserByEmail, createUser, setResponsavel, deletePushToken } from '../../service/authService';
 import { AuthContextData,  AuthProviderProps} from './types';
 import * as Notifications from 'expo-notifications'
 import { Alert, Linking, Platform } from 'react-native';
@@ -39,6 +39,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     };
 
     const signOut = async () => {
+        const token = (await Notifications.getExpoPushTokenAsync()).data;
+        await deletePushToken(user.id, token)
         await removeToken();
         await removeUser()
         setUser(null)
@@ -51,6 +53,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             //console.log(id)
             return data
 
+    }
+
+    const registerResponsavel = async (id: number, email: string) => {
+        return await setResponsavel(id, email)
     }
 
     const requestNotificationPermission = async () => {
@@ -107,13 +113,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
     };
     
-    const sendNotification = async (id: number, userName: string) => {
+    const sendNotification = async (id: number, userName: string, latitude?: any, longitude?: any, precisao?: any, emergencia?: any) => {
         const name = userName.split(" ")[0]
         const formattedName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
         const title = "DangerTAP Acionado!";
         const message = formattedName + " está precisando de ajuda!"
 
-        await sendButtonNotification(id, title, message)
+        await sendButtonNotification(id, title, message, latitude, longitude, precisao, emergencia)
     }
 
     const getUserCpf = async (cpf: string) => {
@@ -125,8 +131,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         return await searchUserByEmail(email)
     }
 
+    const signUp = async (nome: string, cpf: string, data_nascimento: string, email: string, genero: string, senha: string) => {
+        return await createUser(nome, cpf, data_nascimento, email, genero, senha)
+    }
+
     return (
-        <AuthContext.Provider value={{ isAuthenticated, signIn, signOut, user, getResponsavel, requestNotificationPermission, sendNotification, getUserCpf, getUserEmail }}>
+        <AuthContext.Provider value={{ isAuthenticated, signIn, signOut, user, getResponsavel, requestNotificationPermission, sendNotification, getUserCpf, getUserEmail, signUp, registerResponsavel }}>
             {children}
         </AuthContext.Provider>
     );

@@ -87,6 +87,7 @@ export function Config() {
             <Button 
                 onPress={handleLogout} 
                 label='Logout'
+                style={{paddingLeft: 80, paddingRight: 80}}
             />
         </S.ConfigContainer>
     );

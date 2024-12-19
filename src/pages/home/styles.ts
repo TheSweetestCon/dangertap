@@ -31,6 +31,7 @@ export const HomeText = styled.Text`
         font-size: 36px;
         font-weight: bold;
         text-align: left;
+        text-transform: capitalize;
     `}
 `;
 

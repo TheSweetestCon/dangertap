@@ -14,7 +14,8 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 export function AuthRoutes(){
     return (
-    <Stack.Navigator initialRouteName="Cadastro" screenOptions={{headerShown: false}}>
+    <Stack.Navigator initialRouteName="Login" screenOptions={{headerShown: false}}>
+        <Stack.Screen name='Login' component={Login} />
         <Stack.Screen name='Cadastro' component={Cadastro} />
     </Stack.Navigator>
     )

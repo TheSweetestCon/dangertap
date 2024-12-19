@@ -33,8 +33,8 @@ export const FormContainer = styled.View`
     gap: 15px;
     width: 100%;
     margin-bottom: 15px;
-    padding-left: 40;
-    padding-right: 40;
+    padding-left: 40px;
+    padding-right: 40px;
 `;
 
 export const ErrorView = styled.View`

@@ -76,14 +76,16 @@ export const responsavel = async (id: number): Promise<ResponsavelType[]> => {
     
 }
 
-export const registerPushNotification = async (id: number, token: string, platform: string, deviceName: string | null) => {
-    if(!token || !id) {
-        throw new Error("Usuário ou token não encontrados!");
+export const setResponsavel = async (id: number, email: string) => {
+    if(!id){
+        throw new Error('Usuário não encontrado!')
     }
 
     try {
-        const response = await api.post(`/push/set`, {id, token, platform, deviceName})
-        console.log('Resposta: ', response)
+        const response = await api.post('/resp', {id, email})
+
+        return response
+
     } catch (error: any) {
         throw{
             status: error.response?.status || 500,
@@ -92,7 +94,41 @@ export const registerPushNotification = async (id: number, token: string, platfo
     }
 }
 
-export const sendButtonNotification = async (id: number, title: string, message: string) => {
+export const deletePushToken = async (id: number, token: string) => {
+    if(!id){
+        throw new Error('Usuário não encontrado!')
+    }
+
+    try {
+        const response = await api.post('/push/delete', {id, token})
+
+        return response
+
+    } catch (error: any) {
+        throw{
+            status: error.response?.status || 500,
+            message: error.response?.data?.message || 'Erro no servidor.'
+        }
+    }
+}
+
+export const registerPushNotification = async (id: number, token: string, platform: string, deviceName: string | null) => {
+    if(!token || !id) {
+        throw new Error("Usuário ou token não encontrados!");
+    }
+
+    try {
+        const response = await api.post(`/push/set`, {id, token, platform, deviceName})
+
+    } catch (error: any) {
+        throw{
+            status: error.response?.status || 500,
+            message: error.response?.data?.message || 'Erro no servidor.'
+        }
+    }
+}
+
+export const sendButtonNotification = async (id: number, title: string, message: string, latitude: number, longitude: number, precisao: number, emergencia: boolean) => {
     if (!id){
         console.log('Necessário informar o usuário!')
     }
@@ -100,8 +136,8 @@ export const sendButtonNotification = async (id: number, title: string, message:
     
     try {
         
-        const response = await api.post(`/push/send`, {id, title, message})
-        console.log('Resposta: ', response)
+        const response = await api.post(`/push/send`, {id, title, message, latitude, longitude, precisao, emergencia})
+
 
     } catch (error: any) {
         throw{
@@ -113,9 +149,9 @@ export const sendButtonNotification = async (id: number, title: string, message:
 
 export const searchUserByCpf = async (cpf: string) => {
     try {
-        console.log(cpf)
+        
         const response = await api.post('/users/search', {cpf})
-
+        console.log(response.data)
         return response.data.message
 
     } catch (error: any) {
@@ -133,6 +169,18 @@ export const searchUserByEmail = async (email: string) => {
         console.log(response.data.message)
         return response.data.message
 
+    } catch (error: any) {
+        throw{
+            status: error.response?.status || 500,
+            message: error.response?.data?.message || 'Erro no servidor.'
+        }
+    }
+}
+
+export const createUser = async (nome: string, cpf: string, data_nascimento: string, email: string, genero: string, senha: string) => {
+    try {
+        const response = await api.post('/users', {nome, cpf, data_nascimento, email, genero, senha})
+        return response.status
     } catch (error: any) {
         throw{
             status: error.response?.status || 500,

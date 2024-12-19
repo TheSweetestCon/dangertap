@@ -10,7 +10,8 @@ import { Platform, View } from "react-native";
 import { validateCPF } from "../../utils/validaCPF";
 import { validateEmail } from "../../utils/validateEmail";
 import { AuthContext } from "../../global/AuthContext/AuthGlobal";
-import { searchUserByCpf, searchUserByEmail } from "../../service/authService";
+import { TextPressable } from "../../components/TextPressable";
+import { CommonActions, useNavigation } from "@react-navigation/native";
 
 export function Cadastro() {
     const auth = useContext(AuthContext)
@@ -23,10 +24,12 @@ export function Cadastro() {
     const [genero, setGenero] = useState("")
     const [errorMessage, setErrorMessage] = useState('');
 
+    const navigation = useNavigation()
+
     async function handleCreateAcc() {
         setErrorMessage('');
 
-        if (!nome || !email || !senha || !confirmaSenha || !cpf || !data_nascimento || !genero) {
+        if (!nome || !email || !senha || !confirmaSenha || !cpf || !data_nascimento) {
             setErrorMessage('Todos os campos devem ser preenchidos!');
             return;
         }
@@ -45,16 +48,31 @@ export function Cadastro() {
             setErrorMessage('As senhas devem ser iguais!');
             return;
         }
+        
+        try {
+            if (await auth?.getUserCpf(cpf.replace(/[^\d]/g, '')) === 'user_found') {
+                setErrorMessage('CPF já cadastrado!');
+                return;
+            }
+    
+            if (await auth?.getUserEmail(email) === 'user_found') {
+                setErrorMessage('Email já cadastrado!');
+                return;
+            }
+            
+            const status = await auth?.signUp(nome, cpf, data_nascimento, email, genero, senha)
 
-        if (await auth?.getUserCpf(cpf.replace(/[^\d]/g, '')) === 'user_found') {
-            setErrorMessage('CPF já cadastrado!');
-            return;
+            if (status === 200){
+                await auth?.signIn(email,senha)
+            }
+
+
+        } catch (error: any) {
+            setErrorMessage('Erro no servidor. Tente novamente mais tarde.')
+
         }
-        console.log('Entrando na validação do email')
-        if (await auth?.getUserEmail(email) === 'user_found') {
-            setErrorMessage('Email já cadastrado!');
-            return;
-        }
+
+        
 
         console.log('User can be registered');
     }
@@ -109,7 +127,7 @@ export function Cadastro() {
                         { key: 'F', value: 'Feminino' },
                         { key: null, value: 'Prefiro não responder' }
                     ]}
-                    save="value"
+                    save="key"
                     placeholder="Gênero"
                     search={false}
                     defaultOption={{ key: null, value: 'Prefiro não responder' }}
@@ -153,6 +171,21 @@ export function Cadastro() {
                     paddingRight: 80
                 }}
             />
+
+            <S.Footer>
+                <S.SignUpText>Já tem uma conta?</S.SignUpText>
+                <TextPressable 
+                    label='Entrar' 
+                    color={theme.colors.title} 
+                    onPress={() => navigation.dispatch(
+                        CommonActions.reset({
+                            index: 0,
+                            routes: [{ name: 'Login' }],
+                        })
+                    )}
+                />
+            </S.Footer>
+
         </S.AreaView>
     )
 }

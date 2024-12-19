@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { AppRoutes } from "./app.routes";
 import { AuthRoutes } from "./auth.routes";
 import { AuthContext } from "../global/AuthContext/AuthGlobal";
+import { LocationProvider } from "../global/LocationContext/LocationContext";
 
 
 export function Routes(){
@@ -13,7 +14,9 @@ export function Routes(){
     console.log(auth)
     return(
         <NavigationContainer>
-            {auth?.isAuthenticated ? <AppRoutes/> : <AuthRoutes/>}
+            <LocationProvider>
+                {auth?.isAuthenticated ? <AppRoutes/> : <AuthRoutes/>}
+            </LocationProvider>
         </NavigationContainer>
     )
 }

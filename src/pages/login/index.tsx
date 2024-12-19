@@ -8,6 +8,7 @@ import { Button } from '../../components/Button'
 import { TextPressable } from '../../components/TextPressable'
 import theme from '../../global/theme'
 import { AuthContext } from '../../global/AuthContext/AuthGlobal'
+import { CommonActions, useNavigation } from '@react-navigation/native'
 
 
 export function Login(){
@@ -15,6 +16,7 @@ export function Login(){
   const [senha, setSenha] = useState("")
   const [errorMessage, setErrorMessage] = useState('');
   const auth = useContext(AuthContext)
+  const navigation = useNavigation()
 
 
   async function handleLogin() {
@@ -41,7 +43,12 @@ export function Login(){
 
 
   function handleCreateAcc() {
-    alert("Criou conta!")
+    navigation.dispatch(
+                        CommonActions.reset({
+                          index: 0,
+                          routes: [{ name: 'Cadastro' }],
+                        })
+                        )
   }
 
   return (
@@ -56,9 +63,10 @@ export function Login(){
         {errorMessage ? <S.ErrorMessage>{errorMessage}</S.ErrorMessage> : null}
       </S.ErrorView>
 
-      <FormInput placeholder='Email' secureTextEntry={false} value={email} onChangeText={setEmail} />
-      <FormInput placeholder='Senha' secureTextEntry={true}  value={senha} onChangeText={setSenha} />
-
+      <S.FormContainer>
+        <FormInput placeholder='Email' secureTextEntry={false} value={email} onChangeText={setEmail} />
+        <FormInput placeholder='Senha' secureTextEntry={true}  value={senha} onChangeText={setSenha} />
+      </S.FormContainer>
       
       
       <S.OptionsContainer>
@@ -75,7 +83,7 @@ export function Login(){
       </S.OptionsContainer>
 
 
-      <Button label='Entrar' onPress={handleLogin} />
+      <Button label='Entrar' onPress={handleLogin} style={{paddingLeft: 120, paddingRight: 120}} />
 
 
       <S.Footer>

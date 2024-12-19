@@ -3,6 +3,7 @@ import MapView, {Marker, Region} from "react-native-maps";
 import * as Location from 'expo-location';
 import { Text } from "react-native";
 import { MapProps } from "./types";
+import { useLocation } from "../../global/LocationContext/LocationContext";
 
 export default function CustomMap({
     style,
@@ -13,7 +14,7 @@ export default function CustomMap({
     showMarker = false,
     timeInterval = 1000
   }: MapProps) {
-    const [location, setLocation] = useState<Region | null>(null);
+    const { location, setLocation } = useLocation();
 
     const mapRef = useRef<MapView>(null);
     const [mapReady, setMapReady] = useState(false);
@@ -38,23 +39,15 @@ export default function CustomMap({
             distanceInterval: 1,
           },
           (newLocation) => {
-            setLocation({
-              //Coordenadas da nova localização
-              latitude: newLocation.coords.latitude,
-              longitude: newLocation.coords.longitude,
+            const { latitude, longitude } = newLocation.coords;
+            const region: Region = {
+              latitude,
+              longitude,
               latitudeDelta: 0.005,
               longitudeDelta: 0.005,
-              
-            });
+          };
+          setLocation(region);
 
-            //Serve para a camera do mapa acompanhar o usuario
-            if (mapReady && mapRef.current) {
-              mapRef.current.animateCamera(
-                {
-                  center: { latitude: newLocation.coords.latitude, longitude: newLocation.coords.longitude }
-                }
-              );
-            }
           }
           
         );
@@ -65,7 +58,7 @@ export default function CustomMap({
           locationSubscription.remove();
         }
       };
-    }, [mapReady]); //So executa o mapa depois de estar pronto
+    }, [mapReady, timeInterval, setLocation]); //So executa o mapa depois de estar pronto
 
   
     if (!location) {

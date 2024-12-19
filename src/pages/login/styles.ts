@@ -32,8 +32,8 @@ export const LogoText = styled.Text`
 export const FormContainer = styled.View`
     gap: 15px;
     width: 100%;
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: 60px;
+    padding-right: 60px;
     margin-bottom: 15px;
     
 `;
@@ -63,8 +63,8 @@ export const ErrorMessage = styled.Text`
 
 export const OptionsContainer = styled.View`
     width: 100%;
-    padding-left: 50px;
-    padding-right: 50px;
+    padding-left: 60px;
+    padding-right: 60px;
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
