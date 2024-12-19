@@ -24,6 +24,10 @@ export const saveUser = async (user: UserType): Promise<void> => {
     await AsyncStorage.setItem(USER_KEY, JSON.stringify(user))
 }
 
+export const removeUser = async (): Promise<void> => {
+    await AsyncStorage.removeItem(USER_KEY)
+}
+
 export const getUser = async (): Promise<string | null> => {
     return await AsyncStorage.getItem(USER_KEY) // O certo seria usar Promise<UserType | null> com JSON.parse, mas não funcionou
 }
@@ -47,6 +51,10 @@ export const login = async (email: string, senha: string): Promise<void> => {
     }
 
 };
+
+export const logout = async (): Promise<void> => {
+    await removeUser()
+}
 
 export const responsavel = async (id: number): Promise<ResponsavelType[]> => {
     const token = await getToken()
@@ -94,6 +102,36 @@ export const sendButtonNotification = async (id: number, title: string, message:
         
         const response = await api.post(`/push/send`, {id, title, message})
         console.log('Resposta: ', response)
+
+    } catch (error: any) {
+        throw{
+            status: error.response?.status || 500,
+            message: error.response?.data?.message || 'Erro no servidor.'
+        }
+    }
+}
+
+export const searchUserByCpf = async (cpf: string) => {
+    try {
+        console.log(cpf)
+        const response = await api.post('/users/search', {cpf})
+
+        return response.data.message
+
+    } catch (error: any) {
+        throw{
+            status: error.response?.status || 500,
+            message: error.response?.data?.message || 'Erro no servidor.'
+        }
+    }
+}
+
+export const searchUserByEmail = async (email: string) => {
+    try {
+        console.log(email)
+        const response = await api.post('/users/search', {email})
+        console.log(response.data.message)
+        return response.data.message
 
     } catch (error: any) {
         throw{

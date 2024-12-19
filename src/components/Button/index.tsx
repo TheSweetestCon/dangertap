@@ -3,18 +3,18 @@ import {ButtonProps} from './types'
 import { AnimatedButton } from '../AnimatedButton'
 import theme from '../../global/theme'
 
-export function Button({ label, onPress }: ButtonProps){
+export function Button({ label, onPress, style }: ButtonProps){
 
   
     return (
-        <S.ButtonContainer>
+        <S.ButtonContainer style={style}>
 
             <AnimatedButton
                 style={{
                     borderWidth: 0,
                     alignItems: 'center',
                     justifyContent: 'center',
-                    height: 45,
+                    height: 45
                 }}
                 colorPressIn={theme.colors.text_white}
                 colorPressOut={theme.colors.title}

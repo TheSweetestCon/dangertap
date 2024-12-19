@@ -5,11 +5,11 @@ import { useState } from 'react';
 
 
 
-export function FormInput({ placeholder, secureTextEntry, value, onChangeText, keyboardType }: FormInputProps){
+export function FormInput({ placeholder, secureTextEntry, value, onChangeText, keyboardType, style }: FormInputProps){
 
     return (
 
-        <S.FormContainer>
+        <S.FormContainer style={style}>
             <S.FormInput 
                 placeholder={placeholder} 
                 secureTextEntry={secureTextEntry} 
@@ -18,6 +18,7 @@ export function FormInput({ placeholder, secureTextEntry, value, onChangeText, k
                 autoCorrect={false}
                 autoCapitalize='none' 
                 keyboardType={keyboardType}
+                
             />
       </S.FormContainer>
 

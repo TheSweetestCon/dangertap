@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState, ReactNode } from 'react';
-import { getToken, getUser, login, removeToken, responsavel, registerPushNotification, sendButtonNotification } from '../../service/authService';
+import { getToken, getUser, login, removeToken, responsavel, registerPushNotification, sendButtonNotification, removeUser, searchUserByCpf, searchUserByEmail } from '../../service/authService';
 import { AuthContextData,  AuthProviderProps} from './types';
 import * as Notifications from 'expo-notifications'
 import { Alert, Linking, Platform } from 'react-native';
@@ -40,6 +40,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const signOut = async () => {
         await removeToken();
+        await removeUser()
         setUser(null)
         setIsAuthenticated(false);
     };
@@ -115,8 +116,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         await sendButtonNotification(id, title, message)
     }
 
+    const getUserCpf = async (cpf: string) => {
+        return await searchUserByCpf(cpf)
+
+    }
+
+    const getUserEmail = async (email: string) => {
+        return await searchUserByEmail(email)
+    }
+
     return (
-        <AuthContext.Provider value={{ isAuthenticated, signIn, signOut, user, getResponsavel, requestNotificationPermission, sendNotification }}>
+        <AuthContext.Provider value={{ isAuthenticated, signIn, signOut, user, getResponsavel, requestNotificationPermission, sendNotification, getUserCpf, getUserEmail }}>
             {children}
         </AuthContext.Provider>
     );

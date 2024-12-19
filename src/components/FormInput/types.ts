@@ -1,4 +1,4 @@
-import { KeyboardTypeOptions, TextInput } from "react-native"
+import { KeyboardTypeOptions, StyleProp, TextStyle  } from "react-native"
 
 export type FormInputProps = {
     placeholder: string,
@@ -6,5 +6,5 @@ export type FormInputProps = {
     value: string,
     onChangeText: (text: string) => void,
     keyboardType?: KeyboardTypeOptions | undefined,
-
+    style?: StyleProp<TextStyle>;
 }

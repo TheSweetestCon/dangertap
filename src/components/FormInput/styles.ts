@@ -3,11 +3,6 @@ import { css } from 'styled-components/native';
 
 export const FormContainer = styled.View`
     gap: 15px;
-    width: 100%;
-    padding-left: 40px;
-    padding-right: 40px;
-    margin-bottom: 15px;
-    
 `;
 
 export const FormInput = styled.TextInput`

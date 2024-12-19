@@ -3,8 +3,10 @@ import { useState } from 'react';
 import { Alert, SafeAreaView, Text, View } from 'react-native';
 import { Platform } from 'react-native';
 import { Button } from '../Button';
+import { DatePickerProps } from './types';
+import theme from '../../global/theme';
 
-export const DatePicker = ({ onDateSelected }: { onDateSelected: (date: any) => void }) => {
+export const DatePicker = ({ onDateSelected, label }: DatePickerProps) => {
     const [date, setDate] = useState(new Date());
     const [show, setShow] = useState(false);
   
@@ -30,32 +32,57 @@ export const DatePicker = ({ onDateSelected }: { onDateSelected: (date: any) => 
   
     return (
 
-        <View style={{
-                width: '50%',
-                alignItems: 'center', 
-                justifyContent: 'center',
-        }}>
+        <View>
 
             {Platform.OS === 'ios' && (
-                <DateTimePicker
-                    testID="dateTimePicker"
-                    value={date}
-                    mode={'date'}
-                    onChange={onChange}
-                    maximumDate={new Date()}
-                />
+                <View style={{
+                            flexDirection: 'column',
+                            gap: 0,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            width: '100%',
+                            height: 50,
+                }}>
+                    {label && <Text style={{color: theme.colors.dark_text, paddingLeft: 20}}>{label}</Text>}
+                    
+                        <DateTimePicker
+                            testID="dateTimePicker"
+                            value={date}
+                            mode={'date'}
+                            onChange={onChange}
+                            maximumDate={new Date()}
+                            display='default'
+                            accentColor={theme.colors.title}
+                    />
+                 
+                </View>
             )}
 
 
-            {Platform.OS === 'android' &&   <Button onPress={showDatePicker}  label="Selecionar" />} 
+            {Platform.OS === 'android' && (
+                <View style={{
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: '100%',
+                    }} 
+                >
+                    <Button 
+                        onPress={showDatePicker}  
+                        label="Nascimento"
+                    />
+                </View>
+            )} 
             {show && (
-                <DateTimePicker
-                testID="dateTimePicker"
-                value={date}
-                mode={'date'}
-                onChange={onChange}
-                maximumDate={new Date()}
-                />)
+                
+                    <DateTimePicker
+                        testID="dateTimePicker"
+                        value={date}
+                        mode={'date'}
+                        onChange={onChange}
+                        maximumDate={new Date()}
+                        minimumDate={new Date(1900, 0, 1)}
+                    />
+                )
             }
     </View>
     );

@@ -8,6 +8,8 @@ export interface AuthContextData {
     getResponsavel: (id: number) => Promise<any>;
     requestNotificationPermission: () => Promise<any>;
     sendNotification: (id: number, userName: string) => Promise<void>
+    getUserCpf: (cpf: string) => Promise<any>;
+    getUserEmail: (email: string) => Promise<any>;
 }
 
 interface User {

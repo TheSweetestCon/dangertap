@@ -1,4 +1,5 @@
 export type ButtonProps = {
     label: string,
-    onPress: () => void
+    onPress: () => void,
+    style?: object
 }
